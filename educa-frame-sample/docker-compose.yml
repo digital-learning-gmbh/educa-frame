@@ -15,7 +15,7 @@ services:
       - './db:/var/lib/mysql'
 
   educa:
-      image: registry.digitallearning.gmbh/eval-portal/eval-portal/bbs-deployment:latest
+      image: registry.digitallearning.gmbh/educa/educa-frame/main:latest
       restart: unless-stopped
       ports:
         - 80:80
@@ -23,7 +23,7 @@ services:
         - TZ=Europe/Berlin
       volumes:
         - ./storage:/usr/share/nginx/html/storage
-        - ./.env_eval:/usr/share/nginx/html/.env
+        - ./.env_educa:/usr/share/nginx/html/.env
       depends_on:
         - db
 
