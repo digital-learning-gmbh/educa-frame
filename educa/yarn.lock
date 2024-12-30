@@ -919,6 +919,18 @@
   dependencies:
     esbuild "^0.14.14"
 
+"@paciolan/remote-component@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@paciolan/remote-component/-/remote-component-2.13.0.tgz#36a9cba17e466dd5564d62cc0784fa60c1c69968"
+  integrity sha512-VESHSqjYf3kpDmqpc1Fx9e5Ccnyc1fbCVrBGSp5yRw1+6oRwzoFlDGc27u8Af3vDl1RJD/4aldaeMZ8f2Btojg==
+  dependencies:
+    "@paciolan/remote-module-loader" "^3.0.2"
+
+"@paciolan/remote-module-loader@^3.0.2":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@paciolan/remote-module-loader/-/remote-module-loader-3.0.3.tgz#3fd58c88521e2ce2696aa065ca1e6838cf974ea4"
+  integrity sha512-gwdJcP5QQbO7OUf00FWh+A5DkF3TnIv06JB3aMpm9pbbHcdouFrjo4nEW7HtbWeIs7z3gwGEVd82clAmzVzh3Q==
+
 "@parcel/watcher-android-arm64@2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@parcel/watcher-android-arm64/-/watcher-android-arm64-2.5.0.tgz#e32d3dda6647791ee930556aee206fcd5ea0fb7a"

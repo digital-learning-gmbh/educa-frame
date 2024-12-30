@@ -49,6 +49,7 @@
         "@fullcalendar/resource-timeline": "^6.1.0",
         "@fullcalendar/timegrid": "^6.1.0",
         "@naisutech/react-tree": "^3.1.0",
+        "@paciolan/remote-component": "^2.13.0",
         "@react-pdf-viewer/core": "^3.11.0",
         "@react-pdf-viewer/default-layout": "^3.11.0",
         "@react-pdf-viewer/locales": "^1.0.0",

@@ -12,7 +12,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import {EducaDefaultTable} from "../../../shared/shared-components";
 import {getDisplayPair} from "../../../shared/shared-components/Inputs";
 
-export function ClassbookMarkWidget(props) {
+const ClassbookMarkWidget = (props) => {
 
     let [grades, setGrades] = useState([])
     let [ isLoading, setIsLoading ] = useState(true)
@@ -279,3 +279,5 @@ export function ClassbookMarkWidget(props) {
 
     </Card>
 }
+
+export default ClassbookMarkWidget;

@@ -13,7 +13,7 @@ const EXAM_TYPES =
     ]
 
 
-export function ClassbookExamList(props) {
+const ClassbookExamList = (props) => {
 
     let [ data, setData ] = useState([])
     let [ isLoading, setIsLoading ] = useState(true)
@@ -90,3 +90,4 @@ export function ClassbookExamList(props) {
     </Card>
 
 }
+export default ClassbookExamList;

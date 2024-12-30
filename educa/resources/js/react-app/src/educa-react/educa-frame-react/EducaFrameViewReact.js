@@ -1,5 +1,5 @@
-import React, {Suspense, useEffect, useState} from "react";
-import {EducaLoading} from "../../shared-local/Loading.js";
+import React, { Suspense, useEffect, useState } from "react";
+import { EducaLoading } from "../../shared-local/Loading.js";
 import EducaAjaxHelper from "../helpers/EducaAjaxHelper.js";
 import ClassbookMarkWidget from "../educa-classbook-react/widgets/ClassbookMarkWidget.js";
 import {
@@ -13,14 +13,28 @@ const requires = createRequires(() => ({
 
 export const RemoteComponent = createRemoteComponent({ requires });
 
-function EducaHomeViewReact() {
-    const [gridConfig, setGridConfig] = useState([]);
+function EducaFrameViewReact() {
+    const [pageConfig, setPageConfig] = useState(null);
+    const [currentPage, setCurrentPage] = useState(null);
 
     useEffect(() => {
         EducaAjaxHelper.loadFrameConfiguration()
-            .then((data) => setGridConfig(data))
-            .catch((error) => console.error("Error fetching grid config:", error));
-    }, []);
+            .then((data) => {
+                const urlParts = window.location.pathname.split("/");
+                const pageKey = urlParts[urlParts.length - 1];
+                console.log(pageKey)
+                const selectedPage = data.find((page) => page.key === pageKey);
+
+                if (selectedPage) {
+                    setCurrentPage(selectedPage);
+                } else {
+                    setCurrentPage(data[0]); // Default to the first page
+                }
+
+                setPageConfig(data);
+            })
+            .catch((error) => console.error("Error fetching page config:", error));
+    }, [window.location.pathname]);
 
     const loadComponent = (componentName) => {
         try {
@@ -38,13 +52,14 @@ function EducaHomeViewReact() {
         }
     };
 
-    if (gridConfig.length === 0) {
-        return <EducaLoading/>;
+    if (!pageConfig || !currentPage) {
+        return <EducaLoading />;
     }
 
     return (
-        <div style={{minHeight: "80vh"}}>
-            {gridConfig.map((row, rowIndex) => (
+        <div style={{ minHeight: "80vh" }}>
+            <h1>{currentPage.display_name}</h1>
+            {currentPage.layout.map((row, rowIndex) => (
                 <div className="row mt-2" key={rowIndex}>
                     {row.map((widget, colIndex) => (
                         <div className={`col-${widget.size}`} key={colIndex}>
@@ -57,7 +72,7 @@ function EducaHomeViewReact() {
                                 <iframe
                                     src={widget.url}
                                     frameBorder="0"
-                                    style={{width: "100%", height: widget.height??"400px"}}
+                                    style={{ width: "100%", height: widget.height ?? "400px" }}
                                 ></iframe>
                             ) : null}
                             {widget.type === "customComponent" ? (
@@ -71,4 +86,4 @@ function EducaHomeViewReact() {
     );
 }
 
-export default EducaHomeViewReact;
+export default EducaFrameViewReact;

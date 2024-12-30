@@ -34,6 +34,7 @@ export const THEME = {
 export const BASE_ROUTES = {
     ROOT: "/app",
     ROOT_HOME: "/app/home",
+    ROOT_FRAME: "/app/frame",
     ROOT_MESSAGES: "/app/messages",
     ROOT_CALENDER: "/app/calendar",
     ROOT_GROUPS: "/app/groups",

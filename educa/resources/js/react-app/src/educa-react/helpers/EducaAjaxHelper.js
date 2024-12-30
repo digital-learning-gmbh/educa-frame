@@ -527,6 +527,8 @@ const API_ADDRESS_BOOK_UPDATE = "addressbook/update";
 const API_ADDRESS_BOOK_DELETE = "addressbook/delete";
 const API_ADDRESS_BOOK_MAIL = "addressbook/mail";
 
+const API_FRAME_CONIGURATION = "frame/grid-configuration";
+
 ////// Status codes 16 Bit
 
 export const STATUS_CODE_ERROR_TOKEN_INVALID = 0xffff;
@@ -4028,6 +4030,11 @@ class EducaAjaxHelper {
         return axios
             .post(BASE + endpoint, formData ? formData : null, config)
             .then((resp) => resp.data);
+    }
+
+    loadFrameConfiguration()
+    {
+        return this._get(API_FRAME_CONIGURATION);
     }
 }
 

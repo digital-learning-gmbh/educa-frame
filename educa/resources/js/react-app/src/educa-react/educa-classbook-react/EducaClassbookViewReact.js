@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import SideMenu from "../educa-components/SideMenu";
 import {Card} from "react-bootstrap";
-import {ClassbookMarkWidget} from "./widgets/ClassbookMarkWidget";
-import {ClassbookAbsenteeism} from "./widgets/ClassbookAbsenteeism";
-import {ClassbookReport} from "./widgets/ClassbookReport";
-import {ClassbookExamList} from "./widgets/ClassbookExamList";
+import ClassbookMarkWidget from "./widgets/ClassbookMarkWidget";
+import ClassbookAbsenteeism from "./widgets/ClassbookAbsenteeism";
+import ClassbookReport from "./widgets/ClassbookReport";
+import ClassbookExamList from "./widgets/ClassbookExamList";
 
 class EducaClassbookViewReact extends Component {
 

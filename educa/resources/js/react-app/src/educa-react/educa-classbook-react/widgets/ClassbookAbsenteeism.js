@@ -5,7 +5,7 @@ import SharedHelper from "../../../shared/shared-helpers/SharedHelper";
 import ReactTabulator from "react-tabulator/lib/ReactTabulator";
 import AjaxHelper from "../../helpers/EducaAjaxHelper";
 
-export function ClassbookAbsenteeism(props) {
+function ClassbookAbsenteeism(props) {
 
     let [ data, setData ] = useState([])
     let [ isLoading, setIsLoading ] = useState(true)
@@ -153,3 +153,5 @@ export function ClassbookAbsenteeism(props) {
                 <h6 className="text-center mt-1">Diese Funktion steht nur für Teilnehmer zur Verfügung. Als Dozent*in melden Sie sich bitte im Klassenbuch in StuPla an.</h6></div>  }
     </Card>
 }
+
+export default ClassbookAbsenteeism;

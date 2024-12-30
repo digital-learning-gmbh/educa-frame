@@ -480,6 +480,11 @@ Route::middleware([
         });
 
 
+        Route::prefix('frame')->group(function () {
+            Route::get('/grid-configuration', 'API\V1\FrameController@frameConfiguration');
+        });
+
+
         Route::prefix('dozent')->group(function () {
             Route::get('/me', 'API\V1\Administration\Classbook\DozentenController@me'); // me-route
             Route::get('/permissions', 'API\V1\Administration\Classbook\DozentenController@canViewAllClassTimetables'); // rechte

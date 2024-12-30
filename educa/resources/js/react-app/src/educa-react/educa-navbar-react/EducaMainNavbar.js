@@ -25,6 +25,7 @@ import ReactTooltip from "react-tooltip";
 import ErrorHandler from "../../shared-local/ErrorHandler";
 import {EducaAccessCodeModal} from "./EducaAccessCodeModal.js";
 import { withEducaLocalizedStrings } from "../helpers/StringLocalizationHelper";
+import EducaAjaxHelper from "../helpers/EducaAjaxHelper.js";
 
 const styles = {
     icon: {
@@ -149,7 +150,7 @@ class EducaMainNavbar extends Component {
             availableApps: [],
             hasError: false,
             showAccessCodeModal: false,
-
+            pages: [],
         };
         this.educaModalRef = React.createRef();
     }
@@ -193,26 +194,9 @@ class EducaMainNavbar extends Component {
             this.setState({ availableApps: shownApps });
         }
 
-        RCHelper.getSubscriptions()
-            .then((resp) => {
-                if (resp.update) {
-                    this.setState({ currentSubscriptions: resp.update }, () =>
-                        this.calculateUnreadMessagesAmount()
-                    );
-                } else throw new Error("Server Error");
-            })
-            .catch((err) => {
-                SharedHelper.logError(
-                    "EducaMainNavbar: Error. Subscription response does not contain objects"
-                );
-            });
-
-        RCHelper.getRcEventManager()?.subscribeToNotifyUserSubscriptionsChanged(
-            "navbarNotifyUser",
-            (data) => {
-                this.handleSubscriptionChange(data);
-            }
-        );
+        EducaAjaxHelper.loadFrameConfiguration()
+            .then((data) => this.setState({pages: data}))
+            .catch((error) => console.error("Error fetching grid config:", error));
     }
 
     handleSubscriptionChange(data) {
@@ -296,7 +280,7 @@ class EducaMainNavbar extends Component {
                 return this.getContactsIcon();
                 break;
             default:
-                return null;
+                return this.getGenericIcon(key);
         }
     }
 
@@ -401,6 +385,21 @@ class EducaMainNavbar extends Component {
                 appKey={APP_NAMES.DASHBOARD}
                 currentlyActiveApp={() => this.getCurrentlyActiveApp()}
                 changeRoute={(route, key) => this.changeRoute(route, key)}
+                path={this.state.currentPath}
+            />
+        );
+    }
+
+    getGenericIcon(app) {
+        return (
+            <GenerateNavbarIcon
+                key={app.key}
+                imgSrc={"/images/home.png"}
+                route={BASE_ROUTES.ROOT_FRAME}
+                name={app.display_name}
+                appKey={APP_NAMES.ROOT_FRAME + app.key}
+                currentlyActiveApp={() => this.getCurrentlyActiveApp()}
+                changeRoute={(route, key) => this.changeRoute( BASE_ROUTES.ROOT_FRAME + "/" + app.key, BASE_ROUTES.ROOT_FRAME + app.key)}
                 path={this.state.currentPath}
             />
         );
@@ -728,8 +727,8 @@ class EducaMainNavbar extends Component {
                                     : "educa"}
                         </Navbar.Brand>
                         <ul className="nav navbar-nav navbar-expand apps-icon-navbar ml-auto mr-auto">
-                            {this.state.availableApps.map((app) => {
-                                return this.getIconForKey(app.appName);
+                            {this.state.pages?.map((app) => {
+                                return this.getIconForKey(app);
                             })}
                         </ul>
                         <div className="navbar-collapse collapse" id="navbar2">
@@ -756,75 +755,6 @@ class EducaMainNavbar extends Component {
                             </div>
                         </div>
                         <ul className="navbar-nav navbar-expand ml-auto">
-                            {/*<li*/}
-                            {/*    className="nav-item"*/}
-                            {/*>*/}
-                            {/*    <div*/}
-                            {/*        style={{*/}
-                            {/*            display: "flex",*/}
-                            {/*            flexDirection: "column",*/}
-                            {/*        }}*/}
-                            {/*        className="chat-navbar"*/}
-                            {/*    >*/}
-                            {/*        <div*/}
-                            {/*            style={{*/}
-                            {/*                display: "flex",*/}
-                            {/*                flexDirection: "row",*/}
-                            {/*                justifyContent: "center",*/}
-                            {/*            }}*/}
-                            {/*        >*/}
-                            {/*            <a*/}
-                            {/*                className="nav-link"*/}
-                            {/*                aria-haspopup="true"*/}
-                            {/*                style={*/}
-                            {/*                    this.getCurrentlyActiveApp() ===*/}
-                            {/*                    APP_NAMES.MESSAGES*/}
-                            {/*                        ? {*/}
-                            {/*                            marginBottom: "1px",*/}
-                            {/*                            paddingBottom: "0px",*/}
-                            {/*                            paddingTop: "0px",*/}
-                            {/*                            opacity: 1,*/}
-                            {/*                        }*/}
-                            {/*                        : { opacity: 0.6 }*/}
-                            {/*                }*/}
-                            {/*                onClick={() => {*/}
-                            {/*                    this.changeRoute(*/}
-                            {/*                        BASE_ROUTES.ROOT_MESSAGES,*/}
-                            {/*                        APP_NAMES.MESSAGES*/}
-                            {/*                    );*/}
-                            {/*                }}*/}
-                            {/*                aria-expanded="false"*/}
-                            {/*            >*/}
-                            {/*                <div>*/}
-                            {/*                    <img*/}
-                            {/*                        style={styles.icon}*/}
-                            {/*                        src={ THEME.flatStyle ? "/images/chat_flat.png" : "/images/chat.png" }*/}
-                            {/*                    />*/}
-                            {/*                    {this.state.unreadMessagesAmount ? (*/}
-                            {/*                        <Badge variant="danger">*/}
-                            {/*                            {*/}
-                            {/*                                this.state*/}
-                            {/*                                    .unreadMessagesAmount*/}
-                            {/*                            }*/}
-                            {/*                        </Badge>*/}
-                            {/*                    ) : null}{" "}*/}
-                            {/*                </div>*/}
-                            {/*            </a>*/}
-                            {/*        </div>*/}
-                            {/*        {this.getCurrentlyActiveApp() ===*/}
-                            {/*        APP_NAMES.MESSAGES ? (*/}
-                            {/*            <div*/}
-                            {/*                style={{*/}
-                            {/*                    fontSize: "10px",*/}
-                            {/*                    textAlign: "center",*/}
-                            {/*                    marginRight: "5px",*/}
-                            {/*                }}*/}
-                            {/*            >*/}
-                            {/*                Nachrichten*/}
-                            {/*            </div>*/}
-                            {/*        ) : null}*/}
-                            {/*    </div>*/}
-                            {/*</li>*/}
                             {FliesentischZentralrat.globalStoreCoinShow() && false ? (
                                 <li
                                     className="nav-item dropdown"

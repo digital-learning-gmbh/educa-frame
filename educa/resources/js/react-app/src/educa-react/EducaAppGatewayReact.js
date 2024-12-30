@@ -19,6 +19,9 @@ import { Redirect, Switch } from "react-router";
 const EducaHomeViewReact = lazy(() =>
     import("./educa-home-react/EducaHomeViewReact")
 );
+const EducaFrameViewReact = lazy(() =>
+    import("./educa-frame-react/EducaFrameViewReact")
+);
 import EventManager from "./EducaEventManager";
 import EducaCalendarViewReact from "./educa-calendar-react/EducaCalendarViewReact";
 import EducaGroupViewReact from "./educa-group-react/EducaGroupViewReact";
@@ -356,10 +359,23 @@ class EducaAppGatewayReact extends Component {
                                 render={(props) => <EducaHomeViewReact {...props} />}
                             />
                         </ProtectedRoute>
+                            <ProtectedRoute path={BASE_ROUTES.ROOT_FRAME}>
+                                <ProtectedRoute
+                                    exact={true}
+                                    path={BASE_ROUTES.ROOT_FRAME}
+                                    render={(props) => <EducaFrameViewReact {...props} />}
+                                />
+                                <ProtectedRoute
+                                    path={"/:frame_id"}
+                                    render={(props) => (
+                                        <EducaFrameViewReact {...props} />
+                                    )}
+                                />
+                            </ProtectedRoute>
                         <ProtectedRoute
                             path={BASE_ROUTES.ROOT}
                             render={(props) => (
-                                <Redirect to={BASE_ROUTES.ROOT_HOME} />
+                                <Redirect to={BASE_ROUTES.ROOT_FRAME} />
                             )}
                         />
                     </Switch>

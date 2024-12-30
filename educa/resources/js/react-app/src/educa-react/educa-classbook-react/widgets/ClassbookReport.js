@@ -8,7 +8,7 @@ import Select from "react-select";
 import Button from "react-bootstrap/Button";
 import {SelectPlaceholder} from "../../helpers/EducaHelper";
 
-export function ClassbookReport(props) {
+function ClassbookReport(props) {
 
     let [isStudent, setIsStudent] = useState(false)
     let [reports, setReports] = useState([])
@@ -91,3 +91,5 @@ export function ClassbookReport(props) {
     </Card>
 
 }
+
+export default ClassbookReport;
