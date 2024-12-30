@@ -33,12 +33,12 @@ function EducaFrameViewReact() {
             .then((data) => {
                 const urlParts = window.location.pathname.split("/");
                 const pageKey = urlParts[urlParts.length - 1];
-                const selectedPage = data.pages.find((page) => page.key === pageKey);
+                const selectedPage = data.find((page) => page.key === pageKey);
 
                 if (selectedPage) {
                     setCurrentPage(selectedPage);
                 } else {
-                    setCurrentPage(data.pages[0]); // Default to the first page
+                    setCurrentPage(data[0]); // Default to the first page
                 }
 
                 setPageConfig(data);
