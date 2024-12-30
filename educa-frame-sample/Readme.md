@@ -33,10 +33,19 @@ Melde dich im Terminal bei der Registry an:
 docker login registry.digitallearning.gmbh
 ```
 
-## Abmelden von der GitLab Container Registry
+### Abmelden von der GitLab Container Registry
 
 Um dich von der GitLab Container Registry abzumelden, führe den folgenden Befehl im Terminal aus:
 
 ```bash
 docker logout registry.digitallearning.gmbh
 ```
+
+## Schritt 3: Installation der Datenbank
+
+Besuche die Seite http://localhost, beim ersten Aufruf wird die Datenbank automatisch installiert. 
+Danach wird eine Erfolgsmeldung angezeigt. Anschließend kann das educa LMS genutzt werden.
+
+## Schritt 4: Login mit Demo-Daten
+
+Du kannst die Demo-Nutzer test0 - test9 mit dem Passwort test nutzen.

@@ -17,6 +17,7 @@ Route::get('/', function () {
     if (!Schema::hasTable('migrations')) {
         Artisan::call('migrate', ['--force' => true]);
         Artisan::call('db:seed', ['--force' => true]);
+        Artisan::call('storage:link');
 
         // Show the installation success page
         return view('install_success');
@@ -41,6 +42,14 @@ Route::get('/sso', '\App\Http\Controllers\Auth\KeyCloakConnectController@startLo
 Route::get('/sso/callback', '\App\Http\Controllers\Auth\KeyCloakConnectController@callback')->name('ssso-callback');
 
 Route::get('/app', function () {
+    if (!Schema::hasTable('migrations')) {
+        Artisan::call('migrate', ['--force' => true]);
+        Artisan::call('db:seed', ['--force' => true]);
+        Artisan::call('storage:link');
+
+        // Show the installation success page
+        return view('install_success');
+    }
     if(request()->getHost() == config('educa.self_service.domain'))
     {
         return redirect("enroll");
@@ -48,6 +57,14 @@ Route::get('/app', function () {
     return view('reactapp');
 });
 Route::get('/app/{any}', function () {
+    if (!Schema::hasTable('migrations')) {
+        Artisan::call('migrate', ['--force' => true]);
+        Artisan::call('db:seed', ['--force' => true]);
+        Artisan::call('storage:link');
+
+        // Show the installation success page
+        return view('install_success');
+    }
     if(request()->getHost() == config('educa.self_service.domain'))
     {
         return redirect("enroll");
