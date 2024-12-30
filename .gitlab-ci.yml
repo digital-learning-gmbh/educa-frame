@@ -19,7 +19,6 @@ build_and_test:
     # Install ssh-agent if not already installed
     - docker network create -d bridge web || true
     - git config --global ssh.postBuffer 2048M
-    - git submodule update --init --force --remote
     - echo -e "WEBSITE=educa-portal\nURL=localhost\nDB_PASSWORD=$DB_PASS\n" > docker/.env
     - echo -e "EMAIL_EXCEPTION_ENABLED=true\nuser_driver=eloquent\nAPP_ENV=devtest\nAPP_DEBUG=false\nAPP_LOG_LEVEL=debug\nAPP_URL=http://localhost\nDB_CONNECTION=mysql\nDB_HOST=db\nDB_PORT=3306\nDB_DATABASE=educa-portal\nDB_USERNAME=root\nDB_PASSWORD=$DB_PASS\nBROADCAST_DRIVER=log\nCACHE_DRIVER=file\nSESSION_DRIVER=file\nQUEUE_DRIVER=database\nREDIS_HOST=127.0.0.1\nREDIS_PASSWORD=null\nREDIS_PORT=6379\nMIGRATION_TOKEN=test\nAPP_KEY=base64:vjEDC8WR1rQfUErexJEh/5Bq8r4ObPiHxns2lidqSXc=\n" > .env
     - docker compose -f docker/docker-compose.yml up -d
