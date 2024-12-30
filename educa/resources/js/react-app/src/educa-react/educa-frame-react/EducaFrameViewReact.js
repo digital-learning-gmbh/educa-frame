@@ -10,6 +10,8 @@ import {
     createRemoteComponent,
     createRequires,
 } from "@paciolan/remote-component";
+import ClassbookAbsenteeism from "../educa-classbook-react/widgets/ClassbookAbsenteeism.js";
+import ClassbookReport from "../educa-classbook-react/widgets/ClassbookReport.js";
 
 const requires = createRequires(() => ({
     react: React,
@@ -21,9 +23,8 @@ export const RemoteComponent = createRemoteComponent({ requires });
 const componentMap = {
     ClassbookMarkWidget,
     ClassbookExamList,
-    ReportSummaryWidget,
-    RecentActivitiesWidget,
-    UserSettingsWidget,
+    ClassbookAbsenteeism,
+    ClassbookReport
 };
 
 function EducaFrameViewReact() {
