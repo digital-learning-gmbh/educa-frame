@@ -17,6 +17,16 @@ function EducaFrameViewReact() {
     const [pageConfig, setPageConfig] = useState(null);
     const [currentPage, setCurrentPage] = useState(null);
 
+
+// Component map for resolving component paths
+    const componentMap = {
+        ClassbookMarkWidget: "../educa-classbook-react/widgets/ClassbookMarkWidget.js",
+        ClassbookExamList: "../educa-classbook-react/widgets/ClassbookExamList.js",
+        ReportSummaryWidget: "../educa-classbook-react/widgets/ReportSummaryWidget.js",
+        RecentActivitiesWidget: "../educa-classbook-react/widgets/RecentActivitiesWidget.js",
+        UserSettingsWidget: "../educa-classbook-react/widgets/UserSettingsWidget.js",
+    };
+
     useEffect(() => {
         EducaAjaxHelper.loadFrameConfiguration()
             .then((data) => {
@@ -37,9 +47,15 @@ function EducaFrameViewReact() {
     }, [window.location.pathname]);
 
     const loadComponent = (componentName) => {
+        const componentPath = componentMap[componentName];
+        if (!componentPath) {
+            console.error(`Component not found in map: ${componentName}`);
+            return () => <div>Component not found: {componentName}</div>;
+        }
+
         try {
             return React.lazy(() =>
-                import(`../educa-classbook-react/widgets/${componentName}`).then((module) => {
+                import(`${componentPath}`).then((module) => {
                     if (!module.default) {
                         throw new Error(`No default export in module: ${componentName}`);
                     }
