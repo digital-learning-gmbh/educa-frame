@@ -57,7 +57,7 @@ RUN echo "pm = dynamic" >> /usr/local/etc/php-fpm.d/www.conf && \
     echo "pm.max_spare_servers = 100" >> /usr/local/etc/php-fpm.d/www.conf
 
 # NGINX
-COPY docker/nginx/site.conf /etc/nginx/sites-enabled/default
+COPY ./docker/nginx/site.conf /etc/nginx/sites-enabled/default
 
 WORKDIR /usr/share/nginx/html
 
