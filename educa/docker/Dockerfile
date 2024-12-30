@@ -23,6 +23,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy application code
 COPY --chown=www-data:www-data . /usr/share/nginx/html
+COPY --chown=www-data:www-data ../educa-permission-sdk /usr/share/nginx/
 
 RUN cd /usr/share/nginx/html && yarn install --immutable --immutable-cache --check-cache && yarn build && composer install && yarn cache clean
 

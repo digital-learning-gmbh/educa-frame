@@ -31,6 +31,7 @@ build_and_test:
     - docker compose exec -T app sh -c 'vendor/bin/phpunit'
     - echo "done"
   after_script:
+    - cd ./educa
     - docker compose -f docker/docker-compose.yml down || true
     - sudo chmod 777 -R docker || true # clean up
     - rm -rf docker || true
