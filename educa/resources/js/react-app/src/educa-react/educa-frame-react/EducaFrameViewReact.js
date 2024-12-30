@@ -2,6 +2,10 @@ import React, { Suspense, useEffect, useState } from "react";
 import { EducaLoading } from "../../shared-local/Loading.js";
 import EducaAjaxHelper from "../helpers/EducaAjaxHelper.js";
 import ClassbookMarkWidget from "../educa-classbook-react/widgets/ClassbookMarkWidget.js";
+import ClassbookExamList from "../educa-classbook-react/widgets/ClassbookExamList.js";
+import ReportSummaryWidget from "../educa-classbook-react/widgets/ReportSummaryWidget.js";
+import RecentActivitiesWidget from "../educa-classbook-react/widgets/RecentActivitiesWidget.js";
+import UserSettingsWidget from "../educa-classbook-react/widgets/UserSettingsWidget.js";
 import {
     createRemoteComponent,
     createRequires,
@@ -13,60 +17,36 @@ const requires = createRequires(() => ({
 
 export const RemoteComponent = createRemoteComponent({ requires });
 
+// Explicit map for resolving components
+const componentMap = {
+    ClassbookMarkWidget,
+    ClassbookExamList,
+    ReportSummaryWidget,
+    RecentActivitiesWidget,
+    UserSettingsWidget,
+};
+
 function EducaFrameViewReact() {
     const [pageConfig, setPageConfig] = useState(null);
     const [currentPage, setCurrentPage] = useState(null);
-
-
-// Component map for resolving component paths
-    const componentMap = {
-        ClassbookMarkWidget: "../educa-classbook-react/widgets/ClassbookMarkWidget.js",
-        ClassbookExamList: "../educa-classbook-react/widgets/ClassbookExamList.js",
-        ReportSummaryWidget: "../educa-classbook-react/widgets/ReportSummaryWidget.js",
-        RecentActivitiesWidget: "../educa-classbook-react/widgets/RecentActivitiesWidget.js",
-        UserSettingsWidget: "../educa-classbook-react/widgets/UserSettingsWidget.js",
-    };
 
     useEffect(() => {
         EducaAjaxHelper.loadFrameConfiguration()
             .then((data) => {
                 const urlParts = window.location.pathname.split("/");
                 const pageKey = urlParts[urlParts.length - 1];
-                console.log(pageKey)
-                const selectedPage = data.find((page) => page.key === pageKey);
+                const selectedPage = data.pages.find((page) => page.key === pageKey);
 
                 if (selectedPage) {
                     setCurrentPage(selectedPage);
                 } else {
-                    setCurrentPage(data[0]); // Default to the first page
+                    setCurrentPage(data.pages[0]); // Default to the first page
                 }
 
                 setPageConfig(data);
             })
             .catch((error) => console.error("Error fetching page config:", error));
-    }, [window.location.pathname]);
-
-    const loadComponent = (componentName) => {
-        const componentPath = componentMap[componentName];
-        if (!componentPath) {
-            console.error(`Component not found in map: ${componentName}`);
-            return () => <div>Component not found: {componentName}</div>;
-        }
-
-        try {
-            return React.lazy(() =>
-                import(`${componentPath}`).then((module) => {
-                    if (!module.default) {
-                        throw new Error(`No default export in module: ${componentName}`);
-                    }
-                    return module;
-                })
-            );
-        } catch (error) {
-            console.error(`Error loading component: ${componentName}`, error);
-            return () => <div>Error loading component: {componentName}</div>;
-        }
-    };
+    }, []);
 
     if (!pageConfig || !currentPage) {
         return <EducaLoading />;
@@ -81,7 +61,7 @@ function EducaFrameViewReact() {
                         <div className={`col-${widget.size}`} key={colIndex}>
                             {widget.type === "local" ? (
                                 <Suspense fallback={<div>Loading component...</div>}>
-                                    {React.createElement(loadComponent(widget.component))}
+                                    {React.createElement(componentMap[widget.component])}
                                 </Suspense>
                             ) : null}
                             {widget.type === "url" ? (
