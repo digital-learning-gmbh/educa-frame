@@ -22,8 +22,8 @@ RUN echo "deb http://deb.debian.org/debian bookworm contrib non-free" > /etc/apt
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy application code
-COPY --chown=www-data:www-data . /usr/share/nginx/html
-COPY --chown=www-data:www-data ../educa-permission-sdk /usr/share/nginx/educa-permission-sdk
+COPY --chown=www-data:www-data ./educa /usr/share/nginx/html
+COPY --chown=www-data:www-data ./educa-permission-sdk /usr/share/nginx/educa-permission-sdk
 
 RUN cd /usr/share/nginx/html && yarn install --immutable --immutable-cache --check-cache && yarn build && composer install && yarn cache clean
 
@@ -39,8 +39,8 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-COPY --chown=root:root ./docker/general/crontab.txt /etc/crontab.txt
-COPY ./docker/general/entrypoint.sh /entry.sh
+COPY --chown=root:root ./educa/docker/general/crontab.txt /etc/crontab.txt
+COPY ./educa/docker/general/entrypoint.sh /entry.sh
 RUN chmod 755 /entry.sh
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
@@ -57,7 +57,7 @@ RUN echo "pm = dynamic" >> /usr/local/etc/php-fpm.d/www.conf && \
     echo "pm.max_spare_servers = 100" >> /usr/local/etc/php-fpm.d/www.conf
 
 # NGINX
-COPY ./docker/nginx/site.conf /etc/nginx/sites-enabled/default
+COPY ./educa/docker/nginx/site.conf /etc/nginx/sites-enabled/default
 
 WORKDIR /usr/share/nginx/html
 
