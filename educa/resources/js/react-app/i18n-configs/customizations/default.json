@@ -1,0 +1,43 @@
+{
+    "section" : "Bereiche",
+    "sections" : "Bereiche",
+    "nameOfTheNewSection" : "Name des neuen Bereichs",
+
+    "student" : "Schüler*in",
+    "students" : "Schüler*innen",
+    "students_akkusativ" : "Schüler*innen",
+
+    "teacher" : "Lehrer*in",
+    "teacher_akkusativ" : "Lehrer*in",
+    "teachers" : "Lehrer*innen",
+    "teachers_akkusativ" : "Lehrer*innen",
+
+    "location" : "Schule",
+    "locations" : "Schulen",
+    "at my locations" : "an meinen Schulen",
+    "class" : "Klasse",
+
+    "lehrplan" : "Lehrplan",
+    "lehrplan_plural" : "Lehrpläne",
+
+    "school" : "Schule",
+    "school_plural" : "Schulen",
+    "schoolyear" : "Schuljahr",
+
+    "subjects" : "Fächer",
+    "subject" : "Fach",
+
+    "schoolclass" : "Klasse",
+    "schoolclasses" : "Klassen",
+
+    "freshmen" :  "Erstsemester",
+    "re-registrants":  "Rückmelder",
+    "downgrading":  "Zurückgestuft",
+    "vacation":  "Beurlaubt",
+    "canceled":  "Abgebrochen (ohne Abschluss)",
+    "extended":  "Verlängert",
+    "loadingString" : "myIBA",
+    "guest" : "Gast",
+    "finish": "Beendet (mit Abschluss)",
+    "newcomer": "Neueinschreiber"
+}

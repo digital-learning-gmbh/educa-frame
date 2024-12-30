@@ -1,0 +1,46 @@
+.sticky-col {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: white;
+}
+
+.first-col {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    left: 0px;
+    z-index: 4;
+}
+
+.second-col {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    left: 100px;
+}
+
+.wrapper {
+    position: relative;
+    overflow: auto;
+    border: 1px solid #dee2e6;
+    white-space: nowrap;
+    height: calc(100vh - 260px);
+    width : 100%;
+}
+
+.wrapper2 {
+    position: relative;
+    overflow: auto;
+    border: 1px solid #dee2e6;
+    white-space: nowrap;
+    height: calc(100vh - 400px);
+    width : 100%;
+}
+
+th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+}

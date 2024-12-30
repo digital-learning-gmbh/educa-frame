@@ -1,0 +1,1 @@
+{!! $formularTemlate->template !!}

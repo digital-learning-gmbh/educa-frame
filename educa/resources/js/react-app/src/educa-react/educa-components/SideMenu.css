@@ -1,0 +1,6 @@
+.bg-transparent.list-group-item.active {
+    color: #212529 !important;
+    background-color: #dae0e5 !important;
+    border-color: transparent;
+    border: 0px;
+}

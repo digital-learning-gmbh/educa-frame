@@ -1,0 +1,41 @@
+figure.media {
+    height: 500px;
+    position: relative;
+}
+
+.group-comment {
+    margin-top: 15px;
+}
+
+.group-footer .group-comment img {
+    width: 32px;
+    margin-right: 10px;
+}
+
+.media-body {
+    overflow: hidden;
+}
+
+.group-footer {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.overflow-ellips-threelines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+/* Carousel dark indicators */
+/* Add an extra .carousel parent class to increase specifity
+   avoiding the use of !important flag. */
+.carousel .carousel-indicators li {
+    background-color: #fff;
+    background-color: rgba(70,70,70,.25);
+}
+
+.carousel .carousel-indicators .active {
+    background-color: #444;
+}

@@ -1,0 +1,78 @@
+{
+    "config": [
+        {
+            "width": 1,
+            "label": "",
+            "content": [
+                [
+                    {
+                        "label": "Titel",
+                        "name": "title",
+                        "type": "text",
+                        "required" : true
+                    }],
+                [
+                    {
+                        "label": "Veranstaltungstyp ‐ Präsenz",
+                        "name": "eventType",
+                        "required": true,
+                        "type": "select-multi",
+                        "options": [
+                            {
+                                "label": "Beispiel 1",
+                                "value": "1"
+                            },
+                            {
+                                "label": "Beispiel 2",
+                                "value": "2"
+                            },
+                            {
+                                "label": "Beispiel 3",
+                                "value": "3"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Veranstaltungstyp ‐ Format",
+                        "name": "formatType",
+                        "required": true,
+                        "type": "select-multi",
+                        "options": [
+                            {
+                                "label": "Beispiel 1",
+                                "value": "1"
+                            },
+                            {
+                                "label": "Beispiel 2",
+                                "value": "2"
+                            },
+                            {
+                                "label": "Beispiel 3",
+                                "value": "3"
+                            }
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "label": "Anfang",
+                        "name": "start",
+                        "type": "date"
+                    },
+                    {
+                        "label": "Ende",
+                        "name": "end",
+                        "type": "date"
+                    }
+                ],
+                [
+                    {
+                        "label": "Beschreibung",
+                        "name": "description",
+                        "type": "textarea"
+                    }
+                ]
+            ]
+        }
+    ]
+}

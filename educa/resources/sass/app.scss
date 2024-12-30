@@ -1,0 +1,261 @@
+
+// Fonts
+@import "typeface-nunito/index.css";
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+@import "bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css";
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+@import './datatables.css';
+@import 'select2/dist/css/select2.min.css';
+@import "./pages/login";
+@import "./pages/subpage";
+@import "./bootstrap_extension";
+@import "./bootstrap_breadcrumb_header";
+@import "./toast";
+@import "editor";
+@import "daterangepicker/daterangepicker.css";
+
+@import "dropzone/dist/dropzone.css";
+@import 'react-tabulator/lib/styles.css';
+// required styles
+@import 'react-tabulator/css/bootstrap/tabulator_bootstrap4.min.css';
+@import 'educa-react/educa-react-general';
+
+@import 'material-icons-font/sass/variables';
+// mandatory and at first place
+@import 'material-icons-font/sass/mixins'; // mandatory and after variables
+// there you can change default variables if they are not good enough for you
+$MaterialIcons_FontPath: "material-icons-font/fonts"; // for CLI project we change font path to point into package fonts folder
+@import 'material-icons-font/sass/main'; // mandatory main material font definition
+@import 'material-icons-font/sass/Regular'; // mandatory @font-face definition
+
+@import 'animate.css';
+
+.fixed-top-2 {
+    margin-top: 56px;
+}
+
+.select2 {
+    width: 100%;
+}
+
+.grid-stack-item.card {
+    border: none !important;
+}
+
+.list-group-item.active .grey {
+    color: #fff
+}
+
+.list-group-item .grey {
+    color: #969696
+}
+
+div.dt-button-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    background: -ms-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+    background: -moz-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+    background: -o-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+    background: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, rgba(0, 0, 0, 0.3)), color-stop(1, rgba(0, 0, 0, 0.7)));
+    background: -webkit-radial-gradient(center, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+    background: radial-gradient(ellipse farthest-corner at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+div.fc div.fc-highlight {
+    background: rgb(2 117 216 / 85%);
+}
+
+a.fc-v-event {
+    border-width: 3px;
+}
+
+.switchBold.active {
+    font-weight: 800;
+}
+
+.stuplaNavBar {
+    background-color: #de003d !important;
+    color: rgb(80, 102, 144) !important;
+}
+
+body {
+    background-color: #f2f3f5 !important;
+    margin: 0px;
+}
+
+// CK Edtitor
+blockquote {
+    overflow: hidden;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+    margin-left: 0;
+    margin-right: 0;
+    font-style: italic;
+    border-left: 5px solid #ccc;
+}
+
+// CK Edtitor
+figure.table > table {
+    width: 100%;
+    border: 1px solid #bfbfbf;
+}
+
+figure.table > th, td, tr {
+    border: 1px solid #bfbfbf;
+}
+
+.fc .fc-daygrid-day.fc-day-tue {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timegrid-col.fc-day-tue {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timeline-slot.fc-day-tue {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timeline-slot.fc-slot-tue {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-daygrid-day.fc-day-thu {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timegrid-col.fc-day-thu {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timeline-slot.fc-day-thu {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timeline-slot.fc-slot-thu {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-daygrid-day.fc-day-sat {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timegrid-col.fc-day-sat {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timeline-slot.fc-day-sat {
+    background-color: #f5f8ff;
+}
+
+.fc .fc-timeline-slot.fc-slot-sat {
+    background-color: #f5f8ff;
+}
+
+.fc-theme-standard td, .fc-theme-standard th {
+    border: 1px solid #bebebe !important;
+}
+
+.bg-back-new {
+    border-bottom: #3490dc 2px solid;
+}
+
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #3490dc;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(24px, 0);
+    }
+}
+
+
+// used in TaskCard
+.custom-task-card {
+    margin-top: 6px;
+    border-left-width: 6px;
+}
+
+.left-border-primary-color {
+    border-left-color: $primary;
+}
+
+.border-selected-color {
+    border-top-color: $primary;
+    border-bottom-color: $primary;
+    border-right-color: $primary;
+}
+
+
+.headerInformation {
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+    width: 100vw;
+}

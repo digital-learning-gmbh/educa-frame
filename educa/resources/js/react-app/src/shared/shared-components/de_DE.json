@@ -1,0 +1,115 @@
+{
+    "attachment": {
+        "clickToDownload": "Zum Herunterladen klicken",
+        "noAttachment": "Es gibt keinen Anhang"
+    },
+    "bookmark": {
+        "noBookmark": "Es gibt kein Lesezeichen"
+    },
+    "core": {
+        "askingPassword": {
+            "requirePasswordToOpen": "Zum Öffnen dieses Dokuments ist ein Passwort erforderlich",
+            "submit": "Einreichen"
+        },
+        "wrongPassword": {
+            "submit": "Submit",
+            "tryAgain": "The password is wrong. Please try again"
+        },
+        "pageLabel": "Page {{pageIndex}}"
+    },
+    "defaultLayout": {
+        "attachment": "Attachment",
+        "bookmark": "Bookmark",
+        "thumbnail": "Thumbnail"
+    },
+    "download": {
+        "download": "Download"
+    },
+    "drop": {
+        "dragDropFile": "Drag and drop a PDF document here"
+    },
+    "fullScreen": {
+        "enterFullScreen": "Full screen",
+        "exitFullScreen": "Exit full screen"
+    },
+    "localeSwitcher": {
+        "switchLocale": "Switch locale"
+    },
+    "open": {
+        "openFile": "Open file"
+    },
+    "pageNavigation": {
+        "enterPageNumber": "Seitenzahl einfügen",
+        "goToFirstPage": "Erste Seite",
+        "goToLastPage": "Letzte Seite",
+        "goToNextPage": "Nächste Seite",
+        "goToPreviousPage": "Vorherige Seite"
+    },
+    "print": {
+        "cancel": "Abbrechen",
+        "close": "Schließen",
+        "disallowPrint": "Das Dokument darf nicht gedruckt werden",
+        "preparingDocument": "Dokument vorbereiten...",
+        "print": "Drucken"
+    },
+    "properties": {
+        "author": "Autor",
+        "close": "Schließen",
+        "creationDate": "Erstellungsdatum",
+        "creator": "Ersteller",
+        "fileName": "Dateiname",
+        "fileSize": "Dateigröße",
+        "keywords": "Schlüsselwörter",
+        "modificationDate": "Änderungsdatum",
+        "pageCount": "Seitenzahl",
+        "pdfProducer": "PDF-Erzeuger",
+        "pdfVersion": "PDF Version",
+        "showProperties": "Eigenschaften anzeigen",
+        "subject": "Thema",
+        "title": "Titel"
+    },
+    "rotate": {
+        "rotateBackward": "Gegen den Uhrzeigersinn drehen",
+        "rotateForward": "Im Uhrzeigersinn drehen"
+    },
+    "scrollMode": {
+        "dualPage": "Zweispaltiges Layout",
+        "dualPageCover": "Zweispaltiges Layout mit Cover",
+        "horizontalScrolling": "Horizontales Scrollen",
+        "pageScrolling": "Seitenweises Scrollen",
+        "singlePage": "Einzelene Seite",
+        "verticalScrolling": "Vertikales Scrollen",
+        "wrappedScrolling": "Umwickeltes Scrollen"
+    },
+    "search": {
+        "close": "Schließen",
+        "enterToSearch": "Zur Suche eingeben",
+        "matchCase": "Groß- / Kleinschreibung",
+        "nextMatch": "Nächstes Spiel",
+        "previousMatch": "Vorheriges Spiel",
+        "search": "Suchen",
+        "wholeWords": "Ganze Wörter"
+    },
+    "selectionMode": {
+        "handTool": "Handwerkzeug",
+        "textSelectionTool": "Textauswahl-Werkzeug"
+    },
+    "theme": {
+        "switchDarkTheme": "Zum dunklen Thema wechseln",
+        "switchLightTheme": "Zum hellen Thema wechseln"
+    },
+    "thumbnail": {
+        "thumbnailLabel": "Vorschaubild der Seite {{pageIndex}}"
+    },
+    "toolbar": {
+        "moreActions": "Mehr Aktionen"
+    },
+    "zoom": {
+        "actualSize": "Tatsächliche Größe",
+        "pageFit": "Seitenanpassung",
+        "pageWidth": "Seitenbreite",
+        "zoomDocument": "Dokument zoomen",
+        "zoomIn": "Vergrößern",
+        "zoomOut": "Verkleinern"
+    }
+}

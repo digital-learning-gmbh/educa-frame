@@ -1,0 +1,36 @@
+stages:
+  - test
+  - deploy
+
+
+build_and_test:
+  stage: test
+  only:
+    - main
+  before_script:
+    - cd ./educa
+    - mkdir node_modules
+    - sudo chmod 777 -R docker || true
+    - sudo chown -R gitlab-runner:www-data .
+    - sudo docker compose -f docker/docker-compose.yml down || true
+  script:
+    # Install ssh-agent if not already installed
+    - docker network create -d bridge web || true
+    - git config --global ssh.postBuffer 2048M
+    - git submodule update --init --force --remote
+    - echo -e "WEBSITE=educa-portal\nURL=localhost\nDB_PASSWORD=$DB_PASS\n" > docker/.env
+    - echo -e "EMAIL_EXCEPTION_ENABLED=true\nuser_driver=eloquent\nAPP_ENV=devtest\nAPP_DEBUG=false\nAPP_LOG_LEVEL=debug\nAPP_URL=http://localhost\nDB_CONNECTION=mysql\nDB_HOST=db\nDB_PORT=3306\nDB_DATABASE=educa-portal\nDB_USERNAME=root\nDB_PASSWORD=$DB_PASS\nBROADCAST_DRIVER=log\nCACHE_DRIVER=file\nSESSION_DRIVER=file\nQUEUE_DRIVER=database\nREDIS_HOST=127.0.0.1\nREDIS_PASSWORD=null\nREDIS_PORT=6379\nMIGRATION_TOKEN=test\nAPP_KEY=base64:vjEDC8WR1rQfUErexJEh/5Bq8r4ObPiHxns2lidqSXc=\n" > .env
+    - docker compose -f docker/docker-compose.yml up -d
+    - cd docker
+    - docker compose exec -T app sh -c 'yarn install'
+    - docker compose exec -T app sh -c 'yarn build'
+    - docker compose exec -T app sh -c 'composer install'
+    - docker compose exec -T app sh -c 'php artisan db:wipe --no-interaction --force && php artisan migrate:refresh --seed --no-interaction --force'
+    - docker compose exec -T app sh -c 'vendor/bin/phpunit'
+    - echo "done"
+  after_script:
+    - docker compose -f docker/docker-compose.yml down || true
+    - sudo chmod 777 -R docker || true # clean up
+    - rm -rf docker || true
+    - sudo chmod -R 777 . # make removable
+

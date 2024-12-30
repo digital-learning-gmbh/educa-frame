@@ -1,0 +1,45 @@
+{
+    "name": "educa/permission-sdk",
+    "description": "Cloud SDK for accessing the educa cloud",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Benjamin Ledel",
+            "email": "benjamin@schule-plus.com"
+        }
+    ],
+    "require": {
+        "php" : ">=8.1",
+        "laravel/framework": "^v10.0",
+        "laravel/helpers": "^1.1",
+        "nategood/httpful": "*",
+        "laravelcollective/html": "^6.1",
+        "illuminate/support": "^10.0",
+        "illuminate/auth": "^10.0",
+        "illuminate/container": "^10.0",
+        "illuminate/contracts": "^10.0",
+        "illuminate/database": "^10.0",
+        "ext-PDO": "*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0",
+        "phpunit/phpunit": "^10.0",
+        "mockery/mockery": "1.6.*",
+        "predis/predis": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "StuPla\\CloudSDK\\": ["src/", "tests/"]
+        },
+        "files": [
+            "src/Permission/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "StuPla\\CloudSDK\\sqlite\\Providers\\SQLiteNamedMemoryConnectionServiceProvider"
+            ]
+        }
+    }
+}

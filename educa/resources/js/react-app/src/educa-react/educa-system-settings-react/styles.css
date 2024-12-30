@@ -1,0 +1,10 @@
+.roundedTenantImage {
+    margin-top: -50px;
+    width: 100px;
+    height: 100px;
+}
+.aqua-gradient {
+    height: 200px;
+    background-size: cover;
+    background-position: center center;
+}

@@ -1,0 +1,91 @@
+- name: Initialize web development environment
+  hosts: localhost
+  connection: local
+  vars:
+    mysql_user: dev
+    mysql_pass: ccenvironment
+    mysql_name: educa
+    php_version: 8.0
+    node_version: 16
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      become: true  
+      become_user: root
+      become_method: sudo
+        
+    - name: Update all packages to their latest version
+      apt:
+        upgrade: "yes"
+      become: true  
+      become_user: root
+      become_method: sudo
+
+    - name: Make sure mysql service is running
+      sysvinit:
+        name: mysql
+        state: started
+        enabled: yes
+      become: true  
+      become_user: root
+      become_method: sudo
+      
+    - name: Delete database if already exists
+      mysql_db:
+        name: "{{ mysql_name }}"
+        state: absent
+      become: true  
+      become_user: root
+      become_method: sudo
+
+    - name: Creating database
+      mysql_db:
+        name: "{{ mysql_name }}"
+        state: present
+      become: true  
+      become_user: root
+      become_method: sudo
+
+    - name: Run composer update
+      composer:
+        command: update
+        working-dir: "."
+#      environment:
+#        COMPOSER_ALLOW_SUPERUSER: 1
+#      become: true  
+#      become_user: root
+#      become_method: sudo
+
+    - name: Create storage link
+      command:
+        cmd: php artisan storage:link
+#      become: true  
+#      become_user: root
+#      become_method: sudo
+
+    - name: Generate jwt
+      command:
+        cmd: php artisan jwt:secret
+#      become: true  
+#      become_user: root
+#      become_method: sudo
+
+    - name: Generate encryption key
+      command:
+        cmd: php artisan key:generate
+#      become: true  
+#      become_user: root
+#      become_method: sudo
+
+    - name: Ensure required user folder is present
+      file:
+        path: "storage/app/public/images/user"
+        state: directory
+
+    - name: Migrate and seed
+      command:
+        cmd: php artisan migrate:refresh --seed
+#      become: true  
+#      become_user: root
+#      become_method: sudo

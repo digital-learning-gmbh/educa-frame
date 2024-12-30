@@ -1,0 +1,37 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en");
+
+// Variables, Mixins
+@import "inspinia/variables";
+@import "inspinia/mixins";
+
+// INSPINIA Theme Elements
+@import "inspinia/typography";
+@import "inspinia/navigation";
+@import "inspinia/top_navigation";
+@import "inspinia/buttons";
+@import "inspinia/badges_labels";
+@import "inspinia/elements";
+@import "inspinia/sidebar";
+@import "inspinia/base";
+@import "inspinia/pages";
+@import "inspinia/chat";
+@import "inspinia/metismenu";
+@import "inspinia/spinners";
+
+// Landing page styles
+@import "inspinia/landing";
+
+// RTL Support
+@import "inspinia/rtl";
+
+// For demo only - config box style
+@import "inspinia/theme-config";
+
+// INSPINIA Skins
+@import "inspinia/skins";
+@import "inspinia/md-skin";
+
+// Media query style
+@import "inspinia/media";

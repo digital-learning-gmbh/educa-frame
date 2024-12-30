@@ -1,0 +1,161 @@
+-   name: Setup environment
+    hosts: localhost
+    connection: local
+    vars:
+        mysql_user: dev
+        mysql_pass: ccenvironment
+        mysql_name: educa
+        php_version: 8.0
+        node_version: 16
+    tasks:
+        -   name: Update package cache
+            apt:
+                update_cache: yes
+            become: true
+            become_user: root
+            become_method: sudo
+
+        -   name: Update all packages to their latest version
+            apt:
+                upgrade: "yes"
+            become: true
+            become_user: root
+            become_method: sudo
+
+        -   name: Add PHP 7 PPA repository
+            apt_repository:
+                repo: ppa:ondrej/php
+            become: true
+            become_user: root
+            become_method: sudo
+
+        -   name: Ensure required packages are installed
+            apt:
+                pkg:
+                    - zip
+                    - unzip
+                    - curl
+                    - git
+                    - openssl
+                    - mysql-server
+                    - mysql-client
+                    - python3-mysqldb
+                    - libmysqlclient-dev
+                    - sqlite3
+                    - php{{ php_version }}-cli
+                    - php{{ php_version }}-curl
+                    - php{{ php_version }}-fpm
+                    - php{{ php_version }}-intl
+                    - php{{ php_version }}-mysql
+                    - php{{ php_version }}-common
+                    - php{{ php_version }}-bcmath
+                    - php{{ php_version }}-json
+                    - php{{ php_version }}-mbstring
+                    - php{{ php_version }}-zip
+                    - php{{ php_version }}-gd
+                    - php{{ php_version }}-xml
+                    - php{{ php_version }}-ldap
+                    - php{{ php_version }}-sqlite3
+            become: true
+            become_user: root
+            become_method: sudo
+
+        -   name: Check if composer is present
+            stat:
+                path: /usr/local/bin/composer
+            register: stat_composer
+
+        -   name: Download and install composer
+            shell: curl -sS https://getcomposer.org/installer | php
+            args:
+                chdir: /usr/src/
+                creates: /usr/local/bin/composer
+                warn: false
+            become: true
+            become_user: root
+            become_method: sudo
+            when: not stat_composer.stat.exists
+
+        -   name: Add composer to global path
+            copy:
+                dest: /usr/local/bin/composer
+                group: root
+                mode: "0755"
+                owner: root
+                src: /usr/src/composer.phar
+                remote_src: yes
+            become: true
+            become_user: root
+            become_method: sudo
+            when: not stat_composer.stat.exists
+
+        -   name: Check if nvm is present
+            stat:
+                path: ~/.nvm
+            register: stat_nvm
+
+        -   name: Download nvm
+            get_url:
+                url: https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh
+                dest: /tmp/nvm.sh
+            when: not stat_nvm.stat.exists
+
+        -   name: Install nvm
+            script: /tmp/nvm.sh
+            when: not stat_nvm.stat.exists
+
+        -   name: Remove nvm installer
+            file:
+                path: /tmp/nvm.sh
+                state: absent
+            when: not stat_nvm.stat.exists
+
+        -   name: Install node
+            shell: |
+                source ~/.nvm/nvm.sh
+                nvm install {{ node_version }}
+                nvm use {{ node_version }}
+            args:
+                executable: /bin/bash
+            when: not stat_nvm.stat.exists
+
+        -   name: Enable remote login to mysql
+            lineinfile:
+                path: /etc/mysql/mysql.conf.d/mysqld.cnf
+                regexp: "^bind-address"
+                line: "bind-address = 0.0.0.0"
+                backup: yes
+            become: true
+            become_user: root
+            become_method: sudo
+
+        -   name: Make sure mysql service is running
+            sysvinit:
+                name: mysql
+                state: started
+                enabled: yes
+            become: true
+            become_user: root
+            become_method: sudo
+
+        -   name: Make sure mysql user exists
+            mysql_user:
+                name: "{{ mysql_user }}"
+                password: "{{ mysql_pass }}"
+                priv: "*.*:ALL"
+                host: "%"
+                state: present
+            no_log: true
+            become: true
+            become_user: root
+            become_method: sudo
+
+
+        -   name: Configure the upload_max_filesize for php.ini
+            lineinfile:
+                dest: /etc/php/{{ php_version }}/cli/php.ini
+                line: "upload_max_filesize = 40M"
+                state: present
+            become: true
+            become_user: root
+            become_method: sudo

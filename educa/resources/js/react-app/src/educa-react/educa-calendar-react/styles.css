@@ -1,0 +1,32 @@
+.fc-theme-standard {
+    background-color: #ffffff;
+    border-radius: 0.125rem;
+}
+
+.fc-toolbar {
+    background-color: #343a40 !important;
+    margin-bottom: 0px !important;
+    padding: 0.5rem 1rem;
+}
+
+.fc-toolbar .fc-button {
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.fc-left {
+    color: white !important;
+}
+
+.fc-toolbar-title {
+    color: white !important;
+}
+
+.fc .fc-button-primary {
+    background-color: #343a40;
+}
+
+.fc .fc-button-primary.fc-button-active {
+    color: #343a40 !important;
+    background-color: white !important;
+}

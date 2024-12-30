@@ -1,0 +1,9 @@
+.glowing-button{
+    animation: button-glow 2s infinite;
+}
+
+@keyframes button-glow {
+    0% {box-shadow: unset;}
+    50% {box-shadow: rgb(255, 98, 0) 0 0 15px 10px;}
+    100% {box-shadow: unset;}
+}

@@ -1,0 +1,22 @@
+.db-shaking {
+    animation: shake 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform:rotate(0deg)
+    }
+    25% {
+        transform:rotate(0.25deg)
+    }
+    50% {
+        transform:rotate(0deg)
+    }
+    75% {
+        transform:rotate(-0.25deg)
+    }
+    100% {
+        transform: rotate(0deg)
+    }
+}

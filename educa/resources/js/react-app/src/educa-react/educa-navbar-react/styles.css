@@ -1,0 +1,17 @@
+.digitInput {
+    border: none;
+    width: 9ch;
+    background: repeating-linear-gradient(90deg,
+    dimgrey 0,
+    dimgrey 1ch,
+    transparent 0,
+    transparent 1.5ch) 0 100%/100% 2px no-repeat;
+    color: dimgrey;
+    font: 5ch consolas, monospace;
+    letter-spacing: .5ch;
+}
+
+.digitInput:focus {
+    outline: none;
+    color: dodgerblue;
+}

@@ -1,0 +1,213 @@
+{
+  "name": "formBuilder",
+  "version": "3.2.1",
+  "main": "dist/form-builder.min.js",
+  "homepage": "https://formbuilder.online/",
+  "repository": {
+    "url": "https://github.com/kevinchappell/formBuilder.git",
+    "type": "git"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "author": "Kevin Chappell <kevin.b.chappell@gmail.com>",
+  "contributors": [],
+  "bugs": "https://github.com/kevinchappell/formBuilder/issues",
+  "description": "A jQuery plugin for drag and drop form building",
+  "keywords": [
+    "jquery-plugin",
+    "forms",
+    "drag and drop",
+    "form builder",
+    "form create"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/*",
+    "node_modules",
+    "test"
+  ],
+  "config": {
+    "files": {
+      "test": [
+        "test/**/*.spec.js"
+      ],
+      "pluginsDir": "src/js/control_plugins/",
+      "fonts": "src/fonts",
+      "sass": "src/sass",
+      "formBuilder": {
+        "js": "src/js/form-builder.js",
+        "sass": [
+          "src/sass/form-builder.scss"
+        ]
+      },
+      "formRender": {
+        "js": "src/js/form-render.js",
+        "sass": [
+          "src/sass/form-render.scss"
+        ]
+      },
+      "site": [
+        "demo/assets/sass/site.scss"
+      ]
+    },
+    "fontServer": "http://fontello.com",
+    "fontelloToken": "c87fefd1a6fb70d86e828e86c655c178"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "browsers": [
+              "> 1%"
+            ]
+          },
+          "include": [
+            "es6.promise",
+            "es6.object.assign"
+          ],
+          "loose": true
+        }
+      ]
+    ],
+    "comments": false,
+    "plugins": [
+      "transform-object-rest-spread",
+      "transform-es2015-destructuring",
+      "syntax-object-rest-spread"
+    ]
+  },
+  "scripts": {
+    "build:analyze": "webpack --mode production -p --progress --config tools/webpack.config --analyze",
+    "build:plugins": "webpack --mode production -p --display-entrypoints --progress --config tools/webpack.plugins.config",
+    "build:vendor": "mkdir -p demo/assets/js/ && node tools/run build-vendor",
+    "build": "webpack --mode production -p --progress --config tools/webpack.config",
+    "build:all": "yarn build && yarn build:vendor && yarn build:plugins && yarn copy",
+    "copy": "cp -a dist/* demo/assets/js/ && cp CONTRIBUTING.md docs/contributing.md && cp LICENSE docs/license.md && mkdir -p demo/assets/lang && cp node_modules/formbuilder-languages/*.lang demo/assets/lang/",
+    "deploy": "yarn build && node tools/deploy.js",
+    "deploy:site": "yarn docs && cd site/ && yarn deploy && cd ../",
+    "docs": "mkdocs build",
+    "font": "node tools/run icon-font",
+    "lint": "eslint ./src --ext .js || true",
+    "semantic-release": "semantic-release",
+    "start": "yarn build:vendor && webpack-dev-server --mode development --open --config tools/webpack.config",
+    "test": "yarn build",
+    "travis-deploy-once": "travis-deploy-once"
+  },
+  "dependencies": {
+    "jquery": "3.3.1",
+    "jquery-ui-sortable": "*"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "3.0.1",
+    "@semantic-release/git": "7.0.5",
+    "@semantic-release/npm": "5.0.5",
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
+    "babel-eslint": "8.2.3",
+    "babel-loader": "7.1.4",
+    "babel-plugin-syntax-object-rest-spread": "6.13.0",
+    "babel-plugin-transform-es2015-destructuring": "6.23.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "babel-register": "6.26.0",
+    "clean-webpack-plugin": "0.1.19",
+    "clui": "0.3.6",
+    "compression-webpack-plugin": "2.0.0",
+    "concat-files": "0.1.1",
+    "cross-env": "5.2.0",
+    "css-loader": "0.28.11",
+    "eslint": "4.19.1",
+    "eslint-config-google": "0.9.1",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-loader": "2.0.0",
+    "eslint-plugin-prettier": "2.6.0",
+    "formbuilder-languages": "^0.1.0",
+    "html-webpack-harddisk-plugin": "0.2.0",
+    "html-webpack-plugin": "3.2.0",
+    "inquirer": "6.0.0",
+    "mi18n": "^0.4.6",
+    "node-sass": "4.9.0",
+    "opener": "1.4.3",
+    "postcss-loader": "2.1.5",
+    "prettier": "1.13.5",
+    "replace-in-file": "3.4.0",
+    "request": "2.87.0",
+    "sass-loader": "7.0.3",
+    "semantic-release": "15.10.7",
+    "semver": "5.5.0",
+    "style-loader": "0.21.0",
+    "travis-deploy-once": "5.0.9",
+    "unzip": "0.1.11",
+    "webpack": "4.12.0",
+    "webpack-bundle-analyzer": "2.13.1",
+    "webpack-cli": "3.0.8",
+    "webpack-dev-server": "3.1.4",
+    "wrapper-webpack-plugin": "2.0.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 120,
+    "semi": false
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "eslint:recommended",
+      "google",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "globals": {
+      "jQuery": true,
+      "$": true
+    },
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+    },
+    "rules": {
+      "no-unused-vars": 1,
+      "no-console": 0,
+      "new-cap": 0,
+      "strict": 0,
+      "arrow-parens": 0,
+      "max-len": 0,
+      "no-underscore-dangle": 0,
+      "comma-dangle": 0,
+      "no-use-before-define": 0,
+      "eol-last": 0,
+      "quotes": [
+        2,
+        "single"
+      ],
+      "prefer-const": [
+        1,
+        {
+          "destructuring": "any",
+          "ignoreReadBeforeAssign": false
+        }
+      ]
+    }
+  },
+  "engines": {},
+  "release": {
+    "branch": "master",
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ]
+  }
+}

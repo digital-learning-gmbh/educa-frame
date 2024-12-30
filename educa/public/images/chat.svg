@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" id="Ebene_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 400 400"
+	 style="enable-background:new 0 0 400 400;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#E94C0A;}
+</style>
+<metadata>
+	<sfw  xmlns="&ns_sfw;">
+		<slices></slices>
+		<sliceSourceBounds  bottomLeftOrigin="true" height="288.5241" width="348.8046" x="25.5977" y="-344.262"></sliceSourceBounds>
+	</sfw>
+</metadata>
+<g>
+	<path class="st0" d="M340.7134,85.514c2.0845,0,3.9128,1.8284,3.9128,3.9127v183.5918c0,2.0844-1.8283,3.9128-3.9128,3.9128
+		H239.586h-29.7728l-0.0021,20.2522l-36.6358-17.3787l-6.0574-2.8734h-6.7043H59.2866c-2.0845,0-3.9128-1.8284-3.9128-3.9128
+		V89.4267c0-2.0843,1.8283-3.9127,3.9128-3.9127H340.7134 M340.7134,55.738H59.2866c-18.5289,0-33.6889,15.16-33.6889,33.6888
+		v183.5918c0,18.5289,15.16,33.6889,33.6889,33.6889h101.127l79.1682,37.5547l0.0042-37.5547h101.1273
+		c18.5289,0,33.6889-15.16,33.6889-33.6889V89.4267C374.4023,70.898,359.2422,55.738,340.7134,55.738L340.7134,55.738z
+		 M302.9989,124.025H96.9992v19.8507h205.9997V124.025z M302.9989,164.6278H96.9992v19.8507h205.9997V164.6278z M302.9989,205.2307
+		H96.9992v19.8507h205.9997V205.2307z"/>
+</g>
+</svg>

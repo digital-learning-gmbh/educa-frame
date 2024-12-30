@@ -1,0 +1,39 @@
+{
+    "section" : "Bereiche",
+    "sections" : "Bereiche",
+    "nameOfTheNewSection" : "Name des neuen Bereichs",
+
+    "student" : "Teilnehmer*in",
+    "students" : "Teilnehmende",
+    "students_akkusativ" : "Teilnehmenden",
+
+    "teacher" : "Referierende",
+    "teacher_akkusativ" : "Referierende*n",
+    "teachers" : "Referierende",
+    "teachers_akkusativ" : "Referierendene",
+
+    "location" : "Mandant",
+    "locations" : "Mandanten",
+    "at my locations" : "an meinen Studienorten",
+    "class" : "Planungsgruppen",
+
+    "lehrplan" : "Curriculum",
+    "lehrplan_plural" : "Curricula",
+
+    "school" : "Studienort",
+    "school_plural" : "Studienorte",
+    "schoolyear" : "Semester",
+
+    "subjects" : "Fächer",
+    "subject" : "Fach",
+
+    "schoolclass" : "Planungsgruppe",
+    "schoolclasses" : "Planungsgruppen",
+
+    "freshmen" :  "Erstsemester",
+    "re-registrants":  "Rückmelder",
+    "downgrading":  "Zurückgestuft",
+    "vacation":  "Beurlaubt",
+    "canceled":  "Abgebrochen",
+    "extended":  "Verlängert"
+}
