@@ -9,7 +9,7 @@ return [
     |
     */
 
-    'instance' => env('RC_INSTANCE', 'https://chat-weiterbildung.educa-portal.de'),
+    'instance' => env('RC_INSTANCE', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ return [
     |
     */
 
-    'admin_username' => env('RC_ADMIN_USERNAME', '2Z3Hp5wD7k6pB9Jij'),
+    'admin_username' => env('RC_ADMIN_USERNAME', ''),
 
     /*
     |--------------------------------------------------------------------------
