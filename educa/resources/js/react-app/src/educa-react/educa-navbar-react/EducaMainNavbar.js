@@ -708,11 +708,24 @@ class EducaMainNavbar extends Component {
                     <div className={"educa-main-container d-flex "}>
                         <Navbar.Brand className="tenant-logo-navbar" href="#" onClick={() => this.changeRoute("/app")}>
                             <img
-                                src={"/storage/images/tenants/RIOS_Logo_kurz@2x.webp"}
+                                src={
+                                    this.props.store.tenant &&
+                                    this.props.store.tenant.logo
+                                        ? "/storage/images/tenants/" +
+                                        this.props.store.tenant.logo
+                                        : "/images/neural.svg"
+                                }
                                 height="30"
                                 className="d-inline-block align-top"
                                 alt=""
                             />{" "}
+                            {this.props.store.tenant
+                                ? this.props.store.tenant?.hideLogoText
+                                    ? ""
+                                    : this.props.store.tenant.name
+                                : this.props.store.tenant?.hideLogoText === true
+                                    ? ""
+                                    : "educa"}
                         </Navbar.Brand>
                         <ul className="nav navbar-nav navbar-expand apps-icon-navbar ml-auto mr-auto">
                             {this.state.availableApps.map((app) => {

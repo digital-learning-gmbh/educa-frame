@@ -23,7 +23,7 @@ class Controller extends BaseController
             Auth::logout();
             return redirect('/login');
         }
-        $addParams = ['cloud_user' => $cloud_user, "current_rcUser" => RocketChatProvider::login($this::getCloudUser()) ];
+        $addParams = ['cloud_user' => $cloud_user, "current_rcUser" => null ];
         if($params == null)
         {
             return view($view, $addParams );

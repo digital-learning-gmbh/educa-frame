@@ -19,7 +19,7 @@ class TenantSeeder extends Seeder
         $tenant->name = "educa";
         $tenant->color = "#202A44";
         $tenant->logo = "neural.svg";
-        $tenant->domain = "weiterbildung.digitallearning.gmbh";
+        $tenant->domain = "localhost";
         $tenant->licence = "default";
         $tenant->coverImage = "welcome.jpg";
         $tenant->overrideLoadingAnimation = false;
@@ -43,24 +43,6 @@ class TenantSeeder extends Seeder
         $tenant->save();
 
         PermissionSeeder::createRolesForTenantSchool($tenant->id);
-
-        $tenant = new Tenant();
-        $tenant->name = "Hotel Rosenheim";
-        $tenant->color = "#006400";
-        $tenant->domain = "hotel-rosenheim.edunex.de";
-        $tenant->licence = "test-eval";
-        $tenant->logo = "logo_landgastwirt_de.png";
-        $tenant->coverImage = "hotel-cover.jpg";
-        $tenant->save();
-
-        $tenant = new Tenant();
-        $tenant->name = "Wäscherei Rüdiger";
-        $tenant->color = "#202A44";
-        $tenant->domain = "ruediger.edunex.de";
-        $tenant->licence = "test-eval";
-        $tenant->logo = "waschlogo.png";
-        $tenant->coverImage = "cover-ruediger.jpeg";
-        $tenant->save();
 
     }
 }
