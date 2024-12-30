@@ -5,6 +5,8 @@ stages:
 
 build_and_test:
   stage: test
+  tags:
+    - node18
   only:
     - main
   before_script:
