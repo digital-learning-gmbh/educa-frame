@@ -10,8 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
+    if (!Schema::hasTable('migrations')) {
+        Artisan::call('migrate', ['--force' => true]);
+        Artisan::call('db:seed', ['--force' => true]);
+
+        // Show the installation success page
+        return view('install_success');
+    }
+
     if(request()->getHost() == config('educa.self_service.domain'))
     {
         return redirect("enroll");

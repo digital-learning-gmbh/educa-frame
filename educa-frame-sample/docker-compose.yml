@@ -22,7 +22,8 @@ services:
       environment:
         - TZ=Europe/Berlin
       volumes:
-        - ./storage:/usr/share/nginx/html/storage
+        - ./storage/logs:/usr/share/nginx/html/storage/logs
+        - ./storage/app:/usr/share/nginx/html/storage/app
         - ./.env_educa:/usr/share/nginx/html/.env
       depends_on:
         - db
