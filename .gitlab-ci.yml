@@ -12,4 +12,4 @@ include:
 
 variables: &global-variables
   GIT_DEPTH: 1
-  DOCKERFILE_PATH: docker/Dockerfile
+  DOCKERFILE_PATH: educa/docker/Dockerfile
