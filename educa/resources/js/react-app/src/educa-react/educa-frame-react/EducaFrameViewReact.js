@@ -3,9 +3,6 @@ import { EducaLoading } from "../../shared-local/Loading.js";
 import EducaAjaxHelper from "../helpers/EducaAjaxHelper.js";
 import ClassbookMarkWidget from "../educa-classbook-react/widgets/ClassbookMarkWidget.js";
 import ClassbookExamList from "../educa-classbook-react/widgets/ClassbookExamList.js";
-import ReportSummaryWidget from "../educa-classbook-react/widgets/ReportSummaryWidget.js";
-import RecentActivitiesWidget from "../educa-classbook-react/widgets/RecentActivitiesWidget.js";
-import UserSettingsWidget from "../educa-classbook-react/widgets/UserSettingsWidget.js";
 import {
     createRemoteComponent,
     createRequires,
