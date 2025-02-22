@@ -244,6 +244,7 @@ function EducaClassbook(props) {
 
                     <Accordion.Collapse eventKey="attendance"  unmountOnExit={false}>
                         <Card.Body>
+                            // hier müsste
                             {memberstable}
                         </Card.Body>
                     </Accordion.Collapse>

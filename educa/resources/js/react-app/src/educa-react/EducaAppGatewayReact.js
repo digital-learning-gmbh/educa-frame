@@ -361,12 +361,7 @@ class EducaAppGatewayReact extends Component {
                         </ProtectedRoute>
                             <ProtectedRoute path={BASE_ROUTES.ROOT_FRAME}>
                                 <ProtectedRoute
-                                    exact={true}
-                                    path={BASE_ROUTES.ROOT_FRAME}
-                                    render={(props) => <EducaFrameViewReact {...props} />}
-                                />
-                                <ProtectedRoute
-                                    path={"/:frame_id"}
+                                    path={BASE_ROUTES.ROOT_FRAME + "/:frame_id"}
                                     render={(props) => (
                                         <EducaFrameViewReact {...props} />
                                     )}
