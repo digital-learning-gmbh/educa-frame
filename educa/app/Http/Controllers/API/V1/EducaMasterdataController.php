@@ -230,29 +230,7 @@ class EducaMasterdataController extends ApiController
 
     public function getCountsForUser($cloud_user)
     {
-        $groups = $cloud_user->gruppen()->pluck("id");
-        $sectionIds = Section::whereIn('group_id', $groups)->pluck('id');
-        $tasks = TaskController::loadTaskForType($cloud_user, $sectionIds, true, null, null,false, true);
-
-        $countsTask = 0;
-        foreach ($tasks as $task)
-        {
-            $task->is_submission_seen = false;
-            if($task->cloud_id != $cloud_user->id)
-                foreach($task->submissions as $submission)
-                    if($submission->cloudid == $cloud_user->id)
-                        $task->is_submission_seen = $submission->has_seen;
-
-            if(!$task->is_submission_seen && $task->cloud_id != $cloud_user->id)
-            {
-                $countsTask++;
-            }
-        }
-
-        $counts = [];
-        $counts["tasks"] = $countsTask;
-
-        return $counts;
+        return [];
     }
 
     public function getRooms(Request $request)

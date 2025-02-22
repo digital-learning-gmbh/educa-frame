@@ -8,6 +8,7 @@ import { createRemoteComponent, createRequires } from "@paciolan/remote-componen
 import ClassbookAbsenteeism from "../educa-classbook-react/widgets/ClassbookAbsenteeism.js";
 import ClassbookReport from "../educa-classbook-react/widgets/ClassbookReport.js";
 import { Row } from "react-bootstrap";
+import ClassbookRIOSSample from "../educa-classbook-react/widgets/ClassbookRIOSSample.js";
 
 const requires = createRequires(() => ({
     react: React,
@@ -20,7 +21,8 @@ const componentMap = {
     ClassbookMarkWidget,
     ClassbookExamList,
     ClassbookAbsenteeism,
-    ClassbookReport
+    ClassbookReport,
+    ClassbookRIOSSample
 };
 
 function EducaFrameViewReact() {

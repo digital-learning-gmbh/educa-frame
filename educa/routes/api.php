@@ -482,6 +482,7 @@ Route::middleware([
 
         Route::prefix('frame')->group(function () {
             Route::get('/grid-configuration', 'API\V1\FrameController@frameConfiguration');
+            Route::post('/rios', 'API\V1\RIOSSelfServiceController@executeRIOSCommand');
         });
 
 

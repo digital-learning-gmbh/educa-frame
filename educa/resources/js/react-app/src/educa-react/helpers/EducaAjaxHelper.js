@@ -528,6 +528,7 @@ const API_ADDRESS_BOOK_DELETE = "addressbook/delete";
 const API_ADDRESS_BOOK_MAIL = "addressbook/mail";
 
 const API_FRAME_CONIGURATION = "frame/grid-configuration";
+const API_RIOS_CALL = "frame/rios";
 
 ////// Status codes 16 Bit
 
@@ -4035,6 +4036,11 @@ class EducaAjaxHelper {
     loadFrameConfiguration()
     {
         return this._get(API_FRAME_CONIGURATION);
+    }
+
+    callRIOSCommand(selfService, content)
+    {
+        return this._post(API_RIOS_CALL, {selfService, content});
     }
 }
 

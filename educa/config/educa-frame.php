@@ -83,10 +83,9 @@ return [
             'key' => 'settings',
             'layout' => [
                 [
-                    // Row 1
                     [
-                        'type' => 'customComponent',
-                        'url' => 'https://raw.githubusercontent.com/Paciolan/remote-component/master/examples/remote-components/HelloWorld.js',
+                        'type' => 'local',
+                        'component' => 'ClassbookRIOSSample',
                         'size' => 12,
                     ],
                 ],
