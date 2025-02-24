@@ -51,7 +51,7 @@ class RIOSSelfServiceController extends ApiController
 
         $response = Http::withToken($token)->post($url, [
             'userid' => $user_id,
-            'selfservice' => $selfservice,
+            'selfService' => $selfservice,
             'content' => $content,
         ]);
 
