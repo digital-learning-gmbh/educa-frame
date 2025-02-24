@@ -46,7 +46,7 @@ class RIOSSelfServiceController extends ApiController
 
         $user_id = $this->getRIOSUserId();
         $url = config("rios.self_service.url") . "/webservice/selfservice";
-        $selfservice = $request->input("selfservice");
+        $selfservice = $request->input("selfService");
         $content = $request->input("content");
 
         $response = Http::withToken($token)->post($url, [
