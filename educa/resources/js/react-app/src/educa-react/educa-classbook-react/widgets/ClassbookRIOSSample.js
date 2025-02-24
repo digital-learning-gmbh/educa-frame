@@ -62,7 +62,7 @@ function ClassbookRIOSSample() {
                     placeholder="Enter content"
                 />
             </Form.Group>
-            <pre>{data}</pre>
+            <pre>{JSON.stringify(data, null, 2)}</pre>
         </Card.Body>
         <Card.Footer>
             <Button className={"m-1"}
