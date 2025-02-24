@@ -56,6 +56,7 @@ class RIOSSelfServiceController extends ApiController
         ]);
 
         if ($response->failed()) {
+            Log::warning("Failed to execute RIOS command! Status:".$response->status()." Body:".$response->body());
             return parent::createJsonResponse("Failed to execute RIOS command", true, 500);
         }
 
