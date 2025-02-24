@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\API\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class RIOSSelfServiceController extends ApiController
 {
@@ -24,6 +25,7 @@ class RIOSSelfServiceController extends ApiController
         ]);
 
         if ($response->failed()) {
+            Log::warning("Failed to receive token from RIOS! Status:".$response->status()." Body:".$response->body());
             return null;
         }
 
