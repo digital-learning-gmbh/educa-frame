@@ -43,7 +43,7 @@ return [
                     ],
                     [
                         'type' => 'customComponent',
-                        'url' => 'https://raw.githubusercontent.com/Paciolan/remote-component/master/examples/remote-components/HelloWorld.js',
+                        'url' => 'http://127.0.0.1:8000/main.js',
                         'size' => 6,
                     ],
                 ],

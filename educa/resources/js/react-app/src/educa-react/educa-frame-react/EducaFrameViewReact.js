@@ -7,11 +7,20 @@ import ClassbookExamList from "../educa-classbook-react/widgets/ClassbookExamLis
 import { createRemoteComponent, createRequires } from "@paciolan/remote-component";
 import ClassbookAbsenteeism from "../educa-classbook-react/widgets/ClassbookAbsenteeism.js";
 import ClassbookReport from "../educa-classbook-react/widgets/ClassbookReport.js";
-import { Row } from "react-bootstrap";
+import {Card, Row} from "react-bootstrap";
 import ClassbookRIOSSample from "../educa-classbook-react/widgets/ClassbookRIOSSample.js";
+import * as ReactHotToast from "react-hot-toast";
+import * as ReactBootstrap from "react-bootstrap";
+import SharedHelper from "../../shared/shared-helpers/SharedHelper.js";
+import moment from "moment";
 
 const requires = createRequires(() => ({
     react: React,
+    "react-hot-toast": ReactHotToast,
+    "react-bootstrap": ReactBootstrap,
+    SharedHelper: SharedHelper,
+    EducaRIOSHelper: EducaAjaxHelper,
+    moment: moment
 }));
 
 export const RemoteComponent = createRemoteComponent({ requires });
