@@ -7,7 +7,7 @@ import ClassbookExamList from "../educa-classbook-react/widgets/ClassbookExamLis
 import { createRemoteComponent, createRequires } from "@paciolan/remote-component";
 import ClassbookAbsenteeism from "../educa-classbook-react/widgets/ClassbookAbsenteeism.js";
 import ClassbookReport from "../educa-classbook-react/widgets/ClassbookReport.js";
-import {Card, Row} from "react-bootstrap";
+import { Card, Row } from "react-bootstrap";
 import ClassbookRIOSSample from "../educa-classbook-react/widgets/ClassbookRIOSSample.js";
 import * as ReactHotToast from "react-hot-toast";
 import * as ReactBootstrap from "react-bootstrap";
@@ -20,19 +20,38 @@ const requires = createRequires(() => ({
     "react-bootstrap": ReactBootstrap,
     SharedHelper: SharedHelper,
     EducaRIOSHelper: EducaAjaxHelper,
-    moment: moment
+    moment: moment,
 }));
 
 export const RemoteComponent = createRemoteComponent({ requires });
 
-// Component mapping
+// Map local (already-imported) components
 const componentMap = {
     ClassbookMarkWidget,
     ClassbookExamList,
     ClassbookAbsenteeism,
     ClassbookReport,
-    ClassbookRIOSSample
+    ClassbookRIOSSample,
 };
+
+/**
+ * Generates Bootstrap column classes based on either `widget.responsive`
+ * or falls back to `col-{size}`.
+ *
+ * Example of widget.responsive = { xs: 12, md: 6, lg: 4 }
+ */
+function getColumnClasses(widget) {
+    if (widget.responsive) {
+        // Convert something like { xs: 12, md: 6, lg: 4 } into
+        // "col-xs-12 col-md-6 col-lg-4"
+        return Object.entries(widget.responsive)
+            .map(([breakpoint, cols]) => `col-${breakpoint}-${cols}`)
+            .join(" ");
+    } else {
+        // Fall back to single "col-{size}"
+        return `col-${widget.size}`;
+    }
+}
 
 function EducaFrameViewReact() {
     const { app, frame, frame_id } = useParams(); // Get the frame ID from the URL
@@ -56,7 +75,7 @@ function EducaFrameViewReact() {
         if (pageConfig) {
             const selectedPage = pageConfig.find((page) => page.key === frame_id) || pageConfig[0];
             setCurrentPage(selectedPage);
-            setKey((prevKey) => prevKey + 1); // ✅ Force re-render
+            setKey((prevKey) => prevKey + 1); // Force re-render
         }
     }, [frame_id, pageConfig]);
 
@@ -70,22 +89,25 @@ function EducaFrameViewReact() {
             {currentPage.layout.map((row, rowIndex) => (
                 <Row className="mt-2" key={rowIndex}>
                     {row.map((widget, colIndex) => (
-                        <div className={`col-${widget.size}`} key={colIndex}>
-                            {widget.type === "local" ? (
+                        <div className={getColumnClasses(widget)} key={colIndex}>
+                            {/* LOCAL WIDGET */}
+                            {widget.type === "local" && (
                                 <Suspense fallback={<div>Loading component...</div>}>
                                     {React.createElement(componentMap[widget.component])}
                                 </Suspense>
-                            ) : null}
-                            {widget.type === "url" ? (
+                            )}
+
+                            {/* URL WIDGET (IFRAME) */}
+                            {widget.type === "url" && (
                                 <iframe
                                     src={widget.url}
                                     frameBorder="0"
                                     style={{ width: "100%", height: widget.height ?? "400px" }}
                                 ></iframe>
-                            ) : null}
-                            {widget.type === "customComponent" ? (
-                                <RemoteComponent url={widget.url} />
-                            ) : null}
+                            )}
+
+                            {/* REMOTE CUSTOM COMPONENT */}
+                            {widget.type === "customComponent" && <RemoteComponent url={widget.url} />}
                         </div>
                     ))}
                 </Row>
