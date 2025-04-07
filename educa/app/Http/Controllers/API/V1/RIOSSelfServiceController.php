@@ -41,7 +41,7 @@ class RIOSSelfServiceController extends ApiController
     {
         $token = $this->getClientToken();
         if (!$token) {
-            return parent::createJsonResponse("Failed to retrieve client token", true, 500);
+            return parent::createJsonResponse("Failed to retrieve client token", true, 500, null, 503);
         }
 
         $user_id = $this->getRIOSUserId();
@@ -57,7 +57,7 @@ class RIOSSelfServiceController extends ApiController
 
         if ($response->failed()) {
             Log::warning("Failed to execute RIOS command! Status: " . $response->status() . " Body: " . $response->body());
-            return parent::createJsonResponse("Failed to execute RIOS command", true, $response->status());
+            return parent::createJsonResponse("Failed to execute RIOS command", true, $response->status(), ["data" => $response->body()], $response->status());
         }
 
         $responseData = $response->json();
