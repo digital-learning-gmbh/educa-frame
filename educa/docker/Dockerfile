@@ -1,22 +1,45 @@
 FROM php:8.2-fpm
 
-# Install environment dependencies
-RUN echo "deb http://deb.debian.org/debian bookworm contrib non-free" > /etc/apt/sources.list.d/contrib.list \
-    && apt-get update && apt-get install -y \
-    sudo nginx libxml2-dev zlib1g-dev libpng-dev libldb-dev libldap2-dev libsodium-dev libzip-dev git ttf-mscorefonts-installer \
-    freetype* libpng-dev libjpeg-dev libfreetype6-dev libwebp-dev imagemagick curl libreoffice \
-    && docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install gd pdo pdo_mysql opcache exif sockets pcntl bcmath ldap sodium xml zip \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs \
-    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update && apt-get install -y yarn \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/pear/
+# 1. Install base system dependencies and add contrib/non-free repos
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    sudo \
+    nginx \
+    git \
+    curl \
+    gnupg \
+    imagemagick \
+    libreoffice \
+    # Build dependencies for PHP extensions
+    libxml2-dev \
+    zlib1g-dev \
+    libpng-dev \
+    libldb-dev \
+    libldap2-dev \
+    libsodium-dev \
+    libzip-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libwebp-dev \
+    && echo "deb http://deb.debian.org/debian bookworm contrib non-free" > /etc/apt/sources.list.d/contrib.list \
+    && apt-get update \
+    && apt-get install -y ttf-mscorefonts-installer \
+    && rm -rf /var/lib/apt/lists/*
 
-# Libre Office Installation (offizielles Image)
-#COPY --from=linuxserver/libreoffice:latest /usr/local/bin /usr/local/bin
+# 2. Install PHP extensions
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install gd pdo pdo_mysql opcache exif sockets pcntl bcmath ldap sodium xml zip
+
+# 3. Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
+# 4. Install Yarn
+RUN mkdir -p /etc/apt/keyrings \
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarnkey.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update \
+    && apt-get install -y yarn \
+    && rm -rf /var/lib/apt/lists/*
 
 # Composer Installation (offizielles Image)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
