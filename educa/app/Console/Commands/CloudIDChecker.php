@@ -8,6 +8,7 @@ use App\Kontakt;
 use App\Lehrer;
 use App\PermissionConstants;
 use App\Schuler;
+use App\Services\RIOSService;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
@@ -104,15 +105,41 @@ class CloudIDChecker extends Command
         }
 
         // try to find student
-        $addInfo = AdditionalInfo::whereRaw('LOWER(email) LIKE ?',[ str_replace("internationale-ba.com","ibadual.com",$cloudID->email)])->first();
-        if($addInfo == null || Schuler::where('info_id','=',$addInfo->id)->first() == null)
-            $addInfo = AdditionalInfo::whereRaw('LOWER(email) LIKE ?',[str_replace("ibadual.com","internationale-ba.com",$cloudID->email)])->first();
+        $service = new RIOSService();
+        $teilnehmer = $service->getTeilnehmer($cloudID->email);
 
-        $addInfos = AdditionalInfo::whereRaw('LOWER(email) LIKE ?',[str_replace("ibadual.com","internationale-ba.com",$cloudID->email)])
-            ->orWhereRaw('LOWER(email) LIKE ?',[ str_replace("internationale-ba.com","ibadual.com",$cloudID->email)])->pluck("id");
-        if(Schuler::whereIn('info_id',$addInfos)->first() != null)
+        // Fall 1: Der Teilnehmer existiert.
+        // Die Einträge werden aktualisiert oder neu erstellt.
+        if($teilnehmer != null)
         {
-            $schuler = Schuler::whereIn('info_id',$addInfos)->first();
+            // Für die App 'student'
+            DB::table('model_cloud_id')->updateOrInsert(
+                [
+                    'cloud_i_d_id' => $cloudID->id,
+                    'model'      => 'App\Schuler',
+                    'appName'    => 'student',
+                ],
+                [
+                    'loginId' => $teilnehmer->id
+                ]
+            );
+
+            // Für die App 'klassenbuch'
+            DB::table('model_cloud_id')->updateOrInsert(
+                [
+                    'cloud_i_d_id' => $cloudID->id,
+                    'model'      => 'App\Schuler',
+                    'appName'    => 'klassenbuch',
+                ],
+                [
+                    'loginId' => $teilnehmer->id
+                ]
+            );
+        }
+        // Fall 2: Der Teilnehmer ist null.
+        // Die zugehörigen Einträge werden gelöscht.
+        else
+        {
             DB::table('model_cloud_id')->where([
                 'cloud_i_d_id' => $cloudID->id,
                 'model' => 'App\Schuler',
@@ -124,20 +151,6 @@ class CloudIDChecker extends Command
                 'model' => 'App\Schuler',
                 'appName' => 'klassenbuch',
             ])->delete();
-
-            DB::table('model_cloud_id')->insert([
-                'cloud_i_d_id' => $cloudID->id,
-                'model' => 'App\Schuler',
-                'appName' => 'student',
-                'loginId' => $schuler->id
-            ]);
-
-            DB::table('model_cloud_id')->insert([
-                'cloud_i_d_id' => $cloudID->id,
-                'model' => 'App\Schuler',
-                'appName' => 'klassenbuch',
-                'loginId' => $schuler->id
-            ]);
         }
 
 
@@ -151,17 +164,27 @@ class CloudIDChecker extends Command
             self::addAppIfNotHas($cloudID, "klassenbuch", $user->id, "App\Lehrer");
         }
 
+        $addInfo = AdditionalInfo::whereRaw('LOWER(email) LIKE ?',[ str_replace("internationale-ba.com","ibadual.com",$cloudID->email)])->first();
+        if($addInfo == null || Schuler::where('info_id','=',$addInfo->id)->first() == null)
+            $addInfo = AdditionalInfo::whereRaw('LOWER(email) LIKE ?',[str_replace("ibadual.com","internationale-ba.com",$cloudID->email)])->first();
         if($addInfo != null && Lehrer::where('info_id','=',$addInfo->id)->first() != null)
         {
             $lehrer = Lehrer::where('info_id','=',$addInfo->id)->first();
             self::addAppIfNotHas($cloudID, "klassenbuch", $lehrer->id, "App\Lehrer");
         }
 
+        // look at unternehmen
+        $users = Kontakt::where('email','like', $cloudID->email)->get();
+        foreach ($users as $user)
+        {
+            self::addAppIfNotHas($cloudID, "company", $user->id, "App\Kontakt");
+        }
+
         // jeder hat Einstellungen
         self::addAppIfNotHas($cloudID, "settings", $cloudID->id, "App\CloudID");
         // Geräteplaner
         if($cloudID->hasPermissionTo("devices.open")) {
-            self::addAppIfNotHas($cloudID, "devices", $cloudID->id, "App\CloudID");
+     //       self::addAppIfNotHas($cloudID, "devices", $cloudID->id, "App\CloudID");
         } else {
             self::removeAppIfNotHas($cloudID, "devices");
         }
@@ -169,7 +192,7 @@ class CloudIDChecker extends Command
         // Gruppen
         if($cloudID->hasPermissionTo(PermissionConstants::EDUCA_SOCIAL_OPEN)) {
             self::addAppIfNotHas($cloudID, "social", $cloudID->id, "App\CloudID");
-            //RocketChatProvider::syncUser($cloudID,true);
+            RocketChatProvider::syncUser($cloudID,true);
         } else {
             self::removeAppIfNotHas($cloudID, "social");
         }

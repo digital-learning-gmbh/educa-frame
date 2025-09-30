@@ -2,49 +2,37 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\CloudID;
 use App\Http\Controllers\API\ApiController;
+use App\Schuler;
+use App\Services\RIOSService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class RIOSSelfServiceController extends ApiController
 {
-    private function getClientToken()
+
+    private function getRIOSUserId(CloudID $cloudID)
     {
-        $url = config("rios.self_service.url") . "/webservice/connect/token";
-        $client_id = config("rios.self_service.client_id");
-        $client_secret = config("rios.self_service.client_secret");
-        $scope = config("rios.self_service.scope");
-        $grant_type = "client_credentials";
-
-        $response = Http::asForm()->post($url, [
-            'client_id' => $client_id,
-            'client_secret' => $client_secret,
-            'scope' => $scope,
-            'grant_type' => $grant_type,
-        ]);
-
-        if ($response->failed()) {
-            Log::warning("Failed to receive token from RIOS! Status:".$response->status()." Body:".$response->body());
-            return null;
+        $shculer_id = $cloudID->getAppLogin("klassenbuch");
+        if($shculer_id && Schuler::find($shculer_id)){
+            return Schuler::find($shculer_id)->external_booking_id;
         }
-
-        return $response->json()['access_token'] ?? null;
-    }
-
-    private function getRIOSUserId()
-    {
-        return "12345";
+        return null;
     }
 
     public function executeRIOSCommand(Request $request)
     {
-        $token = $this->getClientToken();
+        $service = new RIOSService();
+        $token = $service->getClientToken();
         if (!$token) {
             return parent::createJsonResponse("Failed to retrieve client token", true, 500, null, 503);
         }
 
-        $user_id = $this->getRIOSUserId();
+        $cloud_user = parent::getUserForToken($request);
+
+        $user_id = $this->getRIOSUserId($cloud_user);
         $url = config("rios.self_service.url") . "/webservice/selfservice";
         $selfservice = $request->input("selfService");
         $content = $request->input("content");
@@ -65,4 +53,35 @@ class RIOSSelfServiceController extends ApiController
         return parent::createJsonResponse("RIOS command success", false, 200, ["data" => $responseData]);
     }
 
+
+    public function bridgeJs(Request $request)
+    {
+        $service = new RIOSService();
+        $token = $service->getClientToken();
+        if (!$token) {
+            return parent::createJsonResponse("Failed to retrieve client token", true, 500, null, 503);
+        }
+
+        $jsFile = $request->input("jsFile");
+
+        if (!$jsFile || preg_match('/[^\w\-\.]/', $jsFile)) {
+            return parent::createJsonResponse("Invalid jsFile parameter", true, 400);
+        }
+
+        $url = rtrim(config("rios.self_service.url"), '/') . "/webservice/selfservice/widget/" . $jsFile;
+
+        try {
+            $response = Http::withToken($token)->get($url);
+
+            if (!$response->successful()) {
+                return parent::createJsonResponse("Failed to fetch JS file", true, $response->status());
+            }
+
+            return response($response->body(), 200)
+                ->header('Content-Type', 'application/javascript');
+
+        } catch (\Exception $e) {
+            return parent::createJsonResponse("Exception: " . $e->getMessage(), true, 500);
+        }
+    }
 }
