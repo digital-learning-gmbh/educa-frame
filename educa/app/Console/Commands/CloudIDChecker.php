@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\AdditionalInfo;
 use App\Http\Controllers\Shared\RocketChatProvider;
-use App\Kontakt;
 use App\Lehrer;
 use App\PermissionConstants;
 use App\Schuler;
@@ -173,12 +172,6 @@ class CloudIDChecker extends Command
             self::addAppIfNotHas($cloudID, "klassenbuch", $lehrer->id, "App\Lehrer");
         }
 
-        // look at unternehmen
-        $users = Kontakt::where('email','like', $cloudID->email)->get();
-        foreach ($users as $user)
-        {
-            self::addAppIfNotHas($cloudID, "company", $user->id, "App\Kontakt");
-        }
 
         // jeder hat Einstellungen
         self::addAppIfNotHas($cloudID, "settings", $cloudID->id, "App\CloudID");
