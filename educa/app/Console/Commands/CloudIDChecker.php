@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\AdditionalInfo;
-use App\Http\Controllers\Shared\RocketChatProvider;
 use App\Lehrer;
 use App\PermissionConstants;
 use App\Schuler;
@@ -182,13 +181,6 @@ class CloudIDChecker extends Command
             self::removeAppIfNotHas($cloudID, "devices");
         }
         self::removeAppIfNotHas($cloudID, "devices");
-        // Gruppen
-        if($cloudID->hasPermissionTo(PermissionConstants::EDUCA_SOCIAL_OPEN)) {
-            self::addAppIfNotHas($cloudID, "social", $cloudID->id, "App\CloudID");
-            RocketChatProvider::syncUser($cloudID,true);
-        } else {
-            self::removeAppIfNotHas($cloudID, "social");
-        }
         // Aufgaben
         if($cloudID->hasPermissionTo("task.open")) {
             self::addAppIfNotHas($cloudID, "tasks", $cloudID->id, "App\CloudID");
